@@ -18,7 +18,8 @@ const config = {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'build')
   },
-
+//tells webpack to not bundle any libraries into our output bundles on the server,
+//if it exist inside the node modules folder. this is done to make the process of building the server webpack faster
   externals: [webpackNodeExternals()]
 };
 
