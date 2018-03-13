@@ -1,7 +1,7 @@
 // Startup point for the client side application
 import React from 'react';
 import ReactDom from 'react-dom';
-import {BrowserTouter} from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 import Routes from './Routes'
 
 
