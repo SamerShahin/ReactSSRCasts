@@ -1,14 +1,22 @@
 import React from 'react';
-import {Route} from 'react-router-dom';
 import Home from './components/Home';
-import UsersList from './components/UsersList'
+import UsersListPage from './components/UsersList'
+import IsAlive from './components/IsAlive';
 
-export default () => {
-    return (
-        <div>
-            <Route exact path="/" component={Home}/>
-            <Route exact path="/users" component={UsersList}/>
-            <Route path="/is-alive" component={()=>'The app is Alive!!!'}/>
-        </div>
-    );
-};
+export default [
+    {
+        path: '/',
+        component: Home,
+        exact: true
+    },
+    {
+        ...UsersListPage,
+        path: '/users',
+        exact: true
+    },
+    {
+        path: '/is-alive',
+        component: IsAlive,
+        exact: true
+    }
+];
