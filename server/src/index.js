@@ -28,7 +28,14 @@ app.get('*', (req, res) => {
 
     //render the app only after all the promises to fetch data is finished
     Promise.all(promises).then(function (data) {
-        res.send(renderer(req, store));
+        const context = {};
+        const content = renderer(req, store,context);
+
+        //context.notFound is set in the NotFoundPage
+        if(context.notFound){
+            res.status(404)
+        }
+        res.send(content);
     }).catch(function (err) {
 
     });
