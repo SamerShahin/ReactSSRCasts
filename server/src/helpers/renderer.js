@@ -4,8 +4,9 @@ import {StaticRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import {renderRoutes} from 'react-router-config';
 import Routes from '../client/Routes';
-import serialize from 'serialize-javascript';
 //serialize-javascript takes a strings and escapes any string that contain a script tags , similar to strip tags but instead of removing the tag it converts it to unicode
+import serialize from 'serialize-javascript';
+import {Helmet} from 'react-helmet';
 
 export default (req, store, context) => {
     const content = renderToString(
@@ -17,9 +18,15 @@ export default (req, store, context) => {
             </StaticRouter>
         </Provider>
     );
+
+    //Helmet renderStatic stores all the meta tags that were defined in the components
+    const helmet = Helmet.renderStatic();
     return `
     <html>
-        <head></head>
+        <head>
+            ${helmet.title.toString()}
+            ${helmet.meta.toString()}
+        </head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
         <body>
             <script>

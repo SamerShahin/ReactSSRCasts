@@ -24,6 +24,13 @@ app.get('*', (req, res) => {
     const store = createStore(req);
     const promises = matchRoutes(Routes, req.path).map(({route}) => {
         return route.loadData ? route.loadData(store) : null;
+    }).map(promise => {
+        //Wrap each promise with a promise that always resolves , so the promise.all doesn't fail
+        if(promise){
+          return new Promise(function (resolve, reject) {
+             promise.then(resolve).catch(resolve);
+          });
+        }
     });
 
     //render the app only after all the promises to fetch data is finished
@@ -31,6 +38,9 @@ app.get('*', (req, res) => {
         const context = {};
         const content = renderer(req, store,context);
 
+        if(context.url){
+         return res.redirect(301,context.url);
+        }
         //context.notFound is set in the NotFoundPage
         if(context.notFound){
             res.status(404)

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {fetchUsers} from "../actions/index";
+import {Helmet} from 'react-helmet';
 
 class UsersList extends Component {
     componentDidMount() {
@@ -13,9 +14,19 @@ class UsersList extends Component {
         })
     }
 
+    head(){
+        return (
+            <Helmet>
+                {/*Helmet tags only takes a single expression , that why it is essential to wrap the title content different expression in a single expression*/}
+                <title>{`${this.props.users.length} Users App`}</title>
+                <meta property="og:title" content="Users App" />
+            </Helmet>
+        )
+    }
     render() {
         return (
             <div>
+                {this.head()}
                 Here's a big list of users:
                 <ul>{this.renderUsers()}</ul>
             </div>
