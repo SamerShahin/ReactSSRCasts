@@ -1,0 +1,17 @@
+<html>
+<head>
+    <%- appData.helmet.title.toString() %>
+    <%- appData.helmet.meta.toString() %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+</head>
+<body>
+<script type="text/javascript">
+    console.log("potatoes")
+
+    var initialState = <%- appData.INITIAL_STATE%> ;
+    window.INITIAL_STATE = initialState;
+</script>
+<div id="root"><% appData.content %></div>
+<script src="bundle.js"></script>
+</body>
+</html>

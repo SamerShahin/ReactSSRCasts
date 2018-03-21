@@ -21,7 +21,12 @@ export default (req, store, context) => {
 
     //Helmet renderStatic stores all the meta tags that were defined in the components
     const helmet = Helmet.renderStatic();
-    return `
+    return {
+        helmet ,
+        content,
+        INITIAL_STATE : serialize(store.getState())
+    };
+ /*   `
     <html>
         <head>
             ${helmet.title.toString()}
@@ -35,6 +40,6 @@ export default (req, store, context) => {
             <div id="root">${content}</div>
             <script src="bundle.js"></script>
         </body>
-    </html>`;
+    </html>`;*/
 
 };
